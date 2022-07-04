@@ -1,0 +1,113 @@
+.Main {
+    max-width: 100%;
+    text-align: center;
+    justify-content: center; 
+    position: relative;
+    background:linear-gradient(to top,  rgb(144, 144, 247),rgb(56, 56, 232))
+ }
+ 
+ .Text {
+    display: flex;
+     justify-content: center;
+ }
+ 
+ .WalletInput {
+     padding: 15px;
+ }
+ 
+ ::placeholder{
+     color: rgb(18, 17, 17);
+     text-align: center;
+     font-family: 'Times New Roman', Times, serif;
+ }
+ 
+ .SOLInput {
+     width: 4em;
+     margin: 5px;
+ }
+
+ p {
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: none;
+    margin: 10px;
+    font-size: 20px;
+ }
+
+ h1 {
+    font-size: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 30px;
+ }
+
+.MainButtons {
+    display: grid;
+    grid-template-columns: (1,1fr);
+    justify-content: center;
+    background-color:  rgb(144, 144, 247);   
+}
+
+.HeaderButtons {
+    display: flex;
+}
+
+.active-modal {
+    overflow-y: none;
+}
+
+.btn-modal {
+    padding: 10px 20px;
+    display: hidden;
+    margin: 100px auto 0;
+    font-size: 18px;
+}
+
+.modal, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: rgba(49,49,49,0.8);
+}
+.modal-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #f1f1f1;
+    padding: 14px 28px;
+    border-radius: 3px;
+    max-width: 600px;
+    min-width: 300px;
+    border-radius: 30px;
+}
+
+.close-modal {
+    position: relative;
+    right: 10px;
+    padding: 5px 7px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #d60c0c;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.close-modal :hover {
+    background-color: #782020
+}
+
+.close-modal :active {
+    background-color: #782020;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
