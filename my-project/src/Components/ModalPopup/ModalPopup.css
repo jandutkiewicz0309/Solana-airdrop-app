@@ -1,0 +1,62 @@
+.active-modal {
+    overflow-y: none;
+}
+
+.modal, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: rgba(49,49,49,0.8);
+}
+.modal-content {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #0072BB;
+    padding: 14px 28px;
+    border-radius: 3px;
+    max-width: 600px;
+    min-width: 300px;
+    border-radius: 30px;
+}
+
+.adress-alert {
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 700;
+    color: #2A2C24;
+    margin: 10px;
+}
+
+.text-alert {
+    font-size: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #2A2C24;
+}
+
+.close-modal {
+    padding: 5px 7px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #8FC93A;
+    border: none;
+    border-radius: 5px;
+    border: 1px;
+}
+

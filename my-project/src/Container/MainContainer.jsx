@@ -1,72 +1,90 @@
-import { createSignal } from 'solid-js';
-import {PublicKey} from '@solana/web3.js';
-import "./MainContainer.css"
+import { createSignal } from "solid-js";
+import Alert from "./../Components/ModalPopup/ModalPopup";
+import { PublicKey, Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import "./MainContainer.css";
 
-function appSolana() {
+function MainContainer() {
+  const [adress, setAdress] = createSignal("");
+  const [openModal, setOpenModal] = createSignal(false);
+  const [amount, setAmount] = createSignal("");
+  const [success, setSuccess] = createSignal(false);
 
-  const [adress, setAdress] = createSignal("")
-  const setSolanaAdress = (adress1) => {
-    setAdress(adress1)
-    console.log(adress())
-  }
+  const Airdrop = async (adress, network) => {
+    let connection;
+    let isSolana;
+    let pubkey;
+    try {
+      pubkey = new PublicKey(adress);
+      isSolana = PublicKey.isOnCurve(pubkey.toBuffer());
+    } catch (error) {
+      console.log(error);
+      setOpenModal(true);
+      return;
+    }
+    switch (network) {
+      case "devnet":
+        connection = new Connection("https://api.devnet.solana.com");
+      case "testnet":
+        connection = new Connection("https://api.testnet.solana.com");
+    }
+    let txhash = await connection.requestAirdrop(
+      pubkey,
+      parseFloat(amount()) * LAMPORTS_PER_SOL
+    );
+    try {
+      let txhash = await connection.requestAirdrop(
+        pubkey,
+        parseFloat(amount()) * LAMPORTS_PER_SOL
+      );
+      console.log(txhash);
+      setSuccess(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  function Buttons() {
-    const Airdrop = (address, network) => {
-      let isSolana
-      console.log(address)
-      try {
-          const pubkey = new PublicKey(address)
-            isSolana =  PublicKey.isOnCurve(pubkey.toBuffer())
-      } catch (error) {
-
-      }
-      if(!isSolana)
-      switch(network) {
-          case "DevNet":
-              
-      }
-  }
-  }
-  function Alert() {
-    const [modal, setModal] = createSignal(false);
-  
-    const toggleModal = () => {
-      setModal(!modal());
-    };
-
+  const handleClose = () => {
+    setOpenModal(false);
+  };
 
   return (
-    <>
-       <div class="Main">
-      <h1>Solana Airdrop</h1>
-      <input type="text" class="WalletInput" placeholder="Type wallet's address" onInput={(e) => (setAdress(e.target.value))}></input>
-      <div class="Text">
-        <p>Airdrop</p>
-        <input type="number" class="SOLInput" placeholder="choose quantity"></input>
-        <p>SOL</p>
+    <div class="root">
+      <div class="Main">
+        <Alert open={openModal()} onClose={handleClose} />
+        <h1 class="PageHeader">Solana Airdrop</h1>
+        <input
+          type="text"
+          class="WalletInput"
+          placeholder="Type wallet's address"
+          onInput={(e) => setAdress(e.target.value)}
+        ></input>
+        {success() ? <p class="SuccessfulSending">Success</p> : null}
+        <div class="TextHeader">
+          <p class="nameAirdrop">Airdrop</p>
+          <input
+            type="number"
+            class="SOLInput"
+            onInput={(e) => setAmount(e.target.value)}
+          ></input>
+          <p class="NameToken">SOL</p>
+        </div>
+        <div class="MainButtons">
+          <button
+            class="TestNetButton"
+            onClick={() => Airdrop(adress(), "testnet")}
+          >
+            TestNet
+          </button>
+          <button
+            class="DevNetButton"
+            onClick={() => Airdrop(adress(), "devnet")}
+          >
+            DevNet
+          </button>
+        </div>
       </div>
     </div>
-    <div class="MainButtons">
-            <div class="HeaderButton">
-            <button onClick={() => setTest(props.solanaAdress)} >TestNet</button>
-            <button >DevNet</button>
-            </div>
-        </div>
-        {modal() ? (
-          <div class="modal">
-            <div onClick={toggleModal} class="overlay"></div>
-            <div class="modal-content">
-              <h2>Wrong Adress Wallet</h2>
-              <p>
-              You must provide a good wallet address
-              </p>
-              <button class="close-modal" onClick={toggleModal}>CLOSE</button>
-            </div>
-          </div>
-        ):null}
-    </>
-    
   );
 }
-}
-export default appSolana;
+
+export default MainContainer;

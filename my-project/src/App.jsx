@@ -1,12 +1,11 @@
-import appSolana from './Container/MainContainer';
+import MainContainer from "./Container/MainContainer";
 
 function App() {
-
   return (
     <div>
-      <appSolana/>
+      <MainContainer />
     </div>
   );
-  }
+}
 
 export default App;
